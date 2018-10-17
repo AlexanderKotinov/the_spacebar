@@ -1,7 +1,11 @@
-index:
+homepage:
     path: /
     controller: App\Controller\ArticleController::homepage
 
 article_show:
     path: /show/{slug}
     controller: App\Controller\ArticleController::show
+
+article_toggle_heart:
+    path: /news/{slug}/heart
+    controller: App\Controller\ArticleController::toggleArticleHeart
