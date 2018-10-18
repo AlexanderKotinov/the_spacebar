@@ -9,3 +9,7 @@ article_show:
 article_toggle_heart:
     path: /news/{slug}/heart
     controller: App\Controller\ArticleController::toggleArticleHeart
+
+article_admin:
+    path: /article/admin
+    controller: App\Controller\ArticleAdminController::index

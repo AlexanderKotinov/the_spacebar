@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create new article{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h3>Manage articles</h3>
+            <div class="col-md-8 offset-2">
+                {% for article in articles %}
+                    <div class="col-md-2">{{ article.title }}</div>
+                    <div class="col-md-4">{{ article.content }}</div>
+                    <div class="col-md-2">{{ article.publishedAt | date }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
