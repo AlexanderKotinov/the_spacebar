@@ -21,11 +21,17 @@ class ArticleAdminController extends AbstractController
     public function new(EntityManagerInterface $em)
     {
         $article = new Article();
-        $article->setTitle('Article title '.(rand(1,500)))
+        $title = 'Article title new '.(rand(1,500));
+        $article->setTitle( $title )
             ->setContent('Some article content')
             ->setPublishedAt(new \DateTime(sprintf('-%d days', rand(1, 100))))
-            ->setSlug('Some slug here');
+            ->setSlug(strtolower(str_replace(' ', '-', $title) ))
+            ->setHeartCount(rand(1, 40))
+            ->setImageFilename('asteroid.jpeg')
+            ->setAuthor('AlexK');
         $em->persist($article);
         $em->flush();
+
+        return $this->json('');
     }
 }

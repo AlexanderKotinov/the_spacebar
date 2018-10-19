@@ -9,8 +9,8 @@
             <div class="col-md-8 offset-2">
                 {% for article in articles %}
                     <div class="col-md-2">{{ article.title }}</div>
-                    <div class="col-md-4">{{ article.content }}</div>
-                    <div class="col-md-2">{{ article.publishedAt | date }}</div>
+                    <div class="col-md-4">{{ article.content | markdown }}</div>
+                    <div class="col-md-2">{{ article.publishedAt ? article.publishedAt | ago : '' }}</div>
                 {% endfor %}
             </div>
         </div>

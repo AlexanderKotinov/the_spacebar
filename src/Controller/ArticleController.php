@@ -2,24 +2,32 @@
 
 namespace App\Controller;
 
+use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use App\Service\MarkdownHelper;
 use App\Service\SlackClient;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
 {
-    public function homepage()
+    public function homepage(ArticleRepository $repository)
     {
-        return $this->render('article/homepage.html.twig', []);
+        $articles = $repository->findAllPublishedOrderedByNewest();
+
+        return $this->render('article/homepage.html.twig', [
+            'articles' => $articles
+        ]);
     }
 
-    public function show($slug, MarkdownHelper $markdownHelper, SlackClient $slack)
+    public function show(Article $article, MarkdownHelper $markdownHelper, SlackClient $slack)
     {
-        if ($slug == 'aaa') {
-            $slack->sendMessage('Alex', 'new message');
-        }
+//        if ($slug == 'aaa') {
+//            $slack->sendMessage('Alex', 'new message');
+//        }
 
+        dump($article);
         $comments = [
             'First comment',
             'Second comment',
@@ -33,19 +41,18 @@ labore minim pork belly spare ribs cupim short loin in. [Elit exercitation](http
 turkey shank eu pork belly meatball non cupim.
 EOF;
 
-        $articleContent = $markdownHelper->parse($articleContent);
-
         return $this->render('article/show.html.twig', [
-            'title' => ucwords(str_replace('-', ' ', $slug)),
-            'comments' => $comments,
-            'slug' => $slug,
-            'articleContent' => $articleContent
+            'article' => $article,
+            'comments' => $comments
         ]);
     }
 
-    public function toggleArticleHeart($slug, LoggerInterface $logger)
+    public function toggleArticleHeart(Article $article, LoggerInterface $logger, EntityManagerInterface $em)
     {
+        $article->incrementHeartCount();
+        $em->flush();
+
         $logger->info('Article is being liked!');
-        return $this->json(['hearts' => rand(5,20)]);
+        return $this->json(['hearts' => $article->getHeartCount()]);
     }
 }

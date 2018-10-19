@@ -13,3 +13,7 @@ article_toggle_heart:
 article_admin:
     path: /article/admin
     controller: App\Controller\ArticleAdminController::index
+
+new_article:
+    path: /article/admin/new
+    controller: App\Controller\ArticleAdminController::new
