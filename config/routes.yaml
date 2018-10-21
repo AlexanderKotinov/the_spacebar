@@ -17,3 +17,7 @@ article_admin:
 new_article:
     path: /article/admin/new
     controller: App\Controller\ArticleAdminController::new
+
+admin_comment:
+    path: /admin/comment
+    controller: App\Controller\CommentAdminController::index
