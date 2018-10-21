@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Article;
 use App\Entity\Comment;
+use App\Entity\Tag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -40,6 +41,10 @@ class ArticleFixtures extends Fixture
             $comment->setCreatedAt($this->faker->dateTimeBetween('-1 month, -1 seconds'));
             $comment->setArticle($article);
             $manager->persist($comment);
+
+            $tag = new Tag();
+            $tag->setName($this->faker->realText(20));
+            $manager->persist($tag);
         }
     }
 }
