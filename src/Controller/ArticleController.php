@@ -27,12 +27,7 @@ class ArticleController extends AbstractController
 //            $slack->sendMessage('Alex', 'new message');
 //        }
 
-        dump($article);
-        $comments = [
-            'First comment',
-            'Second comment',
-            'Third comment'
-            ];
+        $comments = $article->getComments();
 
         $articleContent = <<<EOF
 Spicy jalapeno **bacon** ipsum **dolor** amet veniam shank in dolore. Ham hock nisi landjaeger cow,

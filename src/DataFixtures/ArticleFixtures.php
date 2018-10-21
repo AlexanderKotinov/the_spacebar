@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
@@ -17,8 +18,7 @@ class ArticleFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+
         $this->faker = Factory::create();
 
         for ($i=0; $i<=10; $i++) {
@@ -33,6 +33,13 @@ class ArticleFixtures extends Fixture
                 ->setAuthor($this->faker->name('male'));
             $manager->persist($article);
             $manager->flush();
+
+            $comment = new Comment();
+            $comment->setAuthorName($this->faker->name);
+            $comment->setContent($this->faker->paragraph);
+            $comment->setCreatedAt($this->faker->dateTimeBetween('-1 month, -1 seconds'));
+            $comment->setArticle($article);
+            $manager->persist($comment);
         }
     }
 }
