@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @IsGranted("ROLE_ADMIN_ARTICLE")
+ */
 class ArticleAdminController extends AbstractController
 {
     public function index(EntityManagerInterface $em)

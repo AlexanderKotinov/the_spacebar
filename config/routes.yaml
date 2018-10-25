@@ -14,7 +14,7 @@ article_admin:
     path: /article/admin
     controller: App\Controller\ArticleAdminController::index
 
-new_article:
+admin_article_new:
     path: /article/admin/new
     controller: App\Controller\ArticleAdminController::new
 
@@ -29,3 +29,15 @@ app_login:
 app_logout:
     path: /logout
     controller: App\Controller\SecurityController::logout
+
+app_account:
+    path: /account
+    controller: App\Controller\AccountController::index
+
+api_account:
+    path: /api/account
+    controller: App\Controller\AccountController::accountApi
+
+app_register:
+    path: /register
+    controller:  App\Controller\SecurityController::register

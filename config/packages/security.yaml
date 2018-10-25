@@ -20,6 +20,8 @@ security:
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
+                    - App\Security\ApiTokenAuthenticator
+                entry_point: App\Security\LoginFormAuthenticator
 
             logout:
                 path: app_logout
@@ -27,6 +29,8 @@ security:
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 2592000
+
+            switch_user: true
 
             # activate different ways to authenticate
 
@@ -39,5 +43,10 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-#         - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }
+#        - { path: ^/change-password, roles: IS_AUTHENTICATED_FULLY }
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_ADMIN_COMMENT, ROLE_ADMIN_ARTICLE, ROLE_ALLOWED_TO_SWITCH]
