@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class CommentAdminController
  * @package App\Controller
- * @IsGranted("ROLE_ADMIN")
+ * @IsGranted("ROLE_ADMIN_COMMENT")
  */
 
 class CommentAdminController extends AbstractController
@@ -25,7 +25,6 @@ class CommentAdminController extends AbstractController
     public function index(CommentRepository $repository, Request $request, PaginatorInterface $paginator)
     {
         $q = $request->query->get('q');
-//        $comments = $repository->findCommentsWithSearch($q);
 
         $queryBuilder = $repository->findCommentsWithSearch($q);
         $pagination = $paginator->paginate(
